@@ -7,57 +7,73 @@ from threading import Timer
 
 class Base:
 
-	def on_quit_click(self, widget):
-		print "Beendet"	
-		gtk.mainquit()
-		#Timer(10,print_time, ()).start()
-		#Timer(5,print_time, ()).start()
+        def on_quit_click(self, widget):
+                print "Beendet"
+                gtk.mainquit()
 
-	def on_button_click(self, widget):
-		# Blinderhoehung
-		radio = [r for r in self.button.get_group() if r.get_active()][0]
-		radiolabel = radio.get_label()	
+        def on_button_click(self, widget):
+                # Blinderhoehung
+                radio = [r for r in self.button.get_group() if r.get_active()][0]
+                radiolabel = radio.get_label()
 
-		if radiolabel == "Double":
-			be = 2
-		elif radiolabel == "Triple":
-			be = 3
-		# Blindpruefung	
-		small_blind = int(self.entry1.get_text())
-		big_blind = int(self.entry2.get_text())
-		
-		if small_blind == "":
-			self.label7.set_markup("<span foreground='red'>Fehler: Kein Start moeglich, es fehlt der SMALL Blind!!!</span>")
-			return False
-		
-		if big_blind == "":
+                if radiolabel == "Double":
+                        be = 2
+                elif radiolabel == "Triple":
+                        be = 3
+                # Blindpruefung
+                small_blind = int(self.entry1.get_text())
+                big_blind = int(self.entry2.get_text())
+
+                if small_blind == "":
+                        self.label7.set_markup("<span foreground='red'>Fehler: Kein Start moeglich, es fehlt der SMALL Blind!!!</span>")
+                        return False
+
+                if big_blind == "":
                         self.label7.set_markup("<span foreground='red'>Fehler: Kein Start moeglich, es fehlt der BIG Blind!!!</span>")
                         return False
 
-		if small_blind >= big_blind:
-			print "Small groesser / gleich Blind " + str(small_blind) + " | " + str(big_blind)
+                if small_blind >= big_blind:
+                        print "Small groesser / gleich Blind " + str(small_blind) + " | " + str(big_blind)
                         self.label7.set_markup("<span foreground='red'>Fehler: Kein Start moeglich, der SMALL Blind ist groesser/gleich als der Big Blind!!!</span>")
                         return False
-		
-		# Wenn alles okay ist dann wird die naechsten Blinderhoehung eingeblendet
-		self.label7.set_markup("<span foreground='black'>Blinderhoehung: Small blind</span>")
+
+                # Intervalpruefung
+                interval = self.entry3.get_text()
+                if interval == "":
+                        print "Interal leer"
+                        self.label7.set_markup("<span foreground='red'>Fehler: Kein Start moeglich, der Interval ist leer!!!</span>")
+                        return False
+
+
+
+                # Wenn alles okay ist dann wird die naechsten Blinderhoehung eingeblendet
+                # self.label7.set_markup("<span foreground='black'>Blinderhoehung: Small blind</span>")
                 var = "Naechste Runde Blinderhoehung Small Blind: " + str(int(small_blind) * int(be)) + " | Big Blind: " + str(int(big_blind) * int(be))
                 self.label7.set_markup("<span foreground='blue'>{0}</span>".format(var))
 
-		i = int(self.entry3.get_text()) * 60	
-		while i > 0:
-		 	i-=1
-			time.sleep(1)
-			self.entry4.set_text(str(i))
-			if i == 59:
-				self.label7.set_markup("<span foreground='black'>{0}</span>".format(var))
-			if i < 11:
-				self.label7.set_markup("<span foreground='red'>{0}</span>".format(var)) 	
-				# gtk.gdk.beep()
-				print '\a'
-			while gtk.events_pending():
-		               gtk.main_iteration_do(False)
+                i = int(self.entry3.get_text()) * 60
+                while i > 0:
+                        i-=1
+                        time.sleep(1)
+                        self.entry4.set_text(str(i))
+                        if i == 300:
+                                self.label7.set_markup("<span foreground='black'>{0}</span>".format(var))
+			if i < 120:
+				self.label7.set_markup("<span foreground='red'>{0}</span>".format(var)) 
+			if i < 11:	
+				print("\a")	
+			
+			if i == 1:
+				small_blind = int(small_blind) * int(be)
+				big_blind = int(big_blind) * int(be)
+	        	        self.entry1.set_text(str(int(small_blind)))
+        	       		self.entry2.set_text(str(int(big_blind)))
+		                var = "Naechste Runde Blinderhoehung Small Blind: " + str(int(small_blind) * int(be)) + " | Big Blind: " + str(int(big_blind) * int(be))
+		                self.label7.set_markup("<span foreground='blue'>{0}</span>".format(var))
+				i = int(self.entry3.get_text()) * 60
 
+                        while gtk.events_pending():
+                               gtk.main_iteration_do(False)
 
 			
 	def callback(self, widget, data=None):
