@@ -184,4 +184,3 @@ class Base:
 if __name__ == "__main__":
   base = Base()
   base.main()
-                                                                                                                                            1,21       Anfang
