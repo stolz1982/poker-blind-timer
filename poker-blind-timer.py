@@ -40,7 +40,7 @@ class Base:
                 # Intervalpruefung
                 interval = self.entry3.get_text()
                 if interval == "":
-                        print "Interal leer"
+                        print "Interval leer"
                         self.label7.set_markup("<span foreground='red'>Fehler: Kein Start moeglich, der Interval ist leer!!!</span>")
                         return False
 
