@@ -2,7 +2,7 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, time
+import gtk, time, sys
 from threading import Timer
 
 class Base:
@@ -10,6 +10,7 @@ class Base:
         def on_quit_click(self, widget):
                 print "Beendet"
                 gtk.mainquit()
+		sys.exit(0)
 
         def on_button_click(self, widget):
                 # Blinderhoehung
