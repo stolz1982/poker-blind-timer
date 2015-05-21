@@ -84,7 +84,7 @@ class Base:
 		
 		self.window = gtk.Window()
 		self.window.connect('destroy', lambda w: gtk.main_quit())
-		self.window.set_size_request(900, 600)
+		# self.window.set_size_request(900, 600)
 		self.window.set_title("Poker Counter")
 		
 		self.boxV = gtk.VBox()
@@ -170,6 +170,9 @@ class Base:
 		self.hs2 = gtk.HSeparator()
 		self.boxV.pack_start(self.hs2)
 		
+		self.progressbar1 = gtk.ProgressBar(adjustment=None)
+		self.boxV.pack_start(self.progressbar1)
+
 		self.button_start = gtk.Button("Start")
 		self.button_start.connect( 'clicked', self.on_button_click )
 		self.button_start.set_tooltip_text("Los geht die Wahnsinnsrunde")
