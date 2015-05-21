@@ -56,6 +56,7 @@ class Base:
                 while i > 0:
                         i-=1
                         time.sleep(1)
+			# self.progressbar1.set_fraction(fraction) 
                         self.entry4.set_text(str(i))
                         if i == 300:
                                 self.label7.set_markup("<span foreground='black'>{0}</span>".format(var))
