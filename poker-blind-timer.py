@@ -84,8 +84,7 @@ class Base:
 		
 		self.window = gtk.Window()
 		self.window.connect('destroy', lambda w: gtk.main_quit())
-		window.set_size_request(900, 600)
-		window.set_title("PyGTK Statusbar Example")
+		self.window.set_size_request(900, 600)
 		self.window.set_title("Poker Counter")
 		
 		self.boxV = gtk.VBox()
@@ -143,6 +142,7 @@ class Base:
 		self.boxH2.pack_start(self.label4)
 		
 		self.entry3 = gtk.Entry()
+		self.entry3.set_tooltip_text("Das Interval entspricht der Rundenlaenge!")
 		self.boxH2.pack_start(self.entry3)
 		self.entry3.set_text("15")
 		
@@ -172,6 +172,7 @@ class Base:
 		
 		self.button_start = gtk.Button("Start")
 		self.button_start.connect( 'clicked', self.on_button_click )
+		self.button_start.set_tooltip_text("Los geht die Wahnsinnsrunde")
 		self.boxV.pack_start(self.button_start)
 
                 self.button_quit = gtk.Button("Quit")
