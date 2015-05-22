@@ -63,8 +63,10 @@ class Base:
 			if i < 120:
 				self.label7.set_markup("<span foreground='red'>{0}</span>".format(var)) 
 			if i < 11:	
-				print("\a")	
-			
+			        # an dieser Stelle soll mal ein beep umgesetzt werden
+				# TODO
+				self.progressbar1.set_text("")					
+	
 			if i == 1:
 				small_blind = int(small_blind) * int(be)
 				big_blind = int(big_blind) * int(be)
@@ -86,7 +88,7 @@ class Base:
 		self.window = gtk.Window()
 		self.window.connect('destroy', lambda w: gtk.main_quit())
 		# self.window.set_size_request(900, 600)
-		self.window.set_title("Poker Counter")
+		self.window.set_title("Poker Blind Timer")
 		
 		self.boxV = gtk.VBox()
 		self.window.add(self.boxV)
@@ -168,8 +170,8 @@ class Base:
 		self.label7 = gtk.Label(" ")
 		self.boxV.pack_start(self.label7)
 
-		self.hs2 = gtk.HSeparator()
-		self.boxV.pack_start(self.hs2)
+		# self.hs2 = gtk.HSeparator()
+		# self.boxV.pack_start(self.hs2)
 		
 		self.progressbar1 = gtk.ProgressBar(adjustment=None)
 		self.boxV.pack_start(self.progressbar1)
