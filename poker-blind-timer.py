@@ -48,15 +48,15 @@ class Base:
 
 
                 # Wenn alles okay ist dann wird die naechsten Blinderhoehung eingeblendet
-                # self.label7.set_markup("<span foreground='black'>Blinderhoehung: Small blind</span>")
                 var = "Naechste Runde Blinderhoehung Small Blind: " + str(int(small_blind) * int(be)) + " | Big Blind: " + str(int(big_blind) * int(be))
                 self.label7.set_markup("<span foreground='blue'>{0}</span>".format(var))
 
+		a = int(self.entry3.get_text()) * 60
                 i = int(self.entry3.get_text()) * 60
                 while i > 0:
                         i-=1
                         time.sleep(1)
-			# self.progressbar1.set_fraction(fraction) 
+			self.progressbar1.set_fraction(float(i) / float(a))
                         self.entry4.set_text(str(i))
                         if i == 300:
                                 self.label7.set_markup("<span foreground='black'>{0}</span>".format(var))
